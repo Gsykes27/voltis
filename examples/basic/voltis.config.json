@@ -1,0 +1,8 @@
+{
+  "appDir": "./app",
+  "distDir": "./dist",
+  "http": { "addr": ":3000" },
+  "dev": { "vitePort": 5173 },
+  "security": { "actionSecret": "dev-secret-change-me" }
+}
+

@@ -1,0 +1,49 @@
+/dist/
+/coverage/
+/.cache/
+/.idea/
+/.vscode/
+/.DS_Store
+Thumbs.db
+
+# Go
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+*.prof
+*.pprof
+*.trace
+
+# Go workspaces
+go.work
+go.work.sum
+
+# Local Go module cache in repo (if any)
+/vendor/
+
+# Node
+**/node_modules/
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
+**/pnpm-debug.log*
+**/.pnpm-store/
+**/.npm/
+**/.yarn/
+
+# Vite/React build output (app builds into dist/client via config)
+**/dist/
+**/.vite/
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+
