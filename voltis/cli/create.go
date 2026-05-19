@@ -20,22 +20,28 @@ func runCreate(ctx context.Context, args []string) error {
 	case "app":
 		fs := flag.NewFlagSet("create app", flag.ContinueOnError)
 		mod := fs.String("module", "example.com/voltis-app", "go module path")
+		voltisPath := fs.String("voltis-path", "", "local path to Voltris repo (writes a replace directive; useful before publishing)")
 		noInstall := fs.Bool("no-install", false, "skip npm install")
 		if err := fs.Parse(args[1:]); err != nil {
 			return err
 		}
 		rest := fs.Args()
 		if len(rest) != 1 {
-			return errors.New("usage: voltis create app -module <module> <dir>")
+			return errors.New("usage: voltis create app -module <module> [-voltis-path <path>] <dir>")
 		}
-		return createApp(ctx, rest[0], *mod, *noInstall)
+		return createApp(ctx, rest[0], *mod, *voltisPath, *noInstall)
 	default:
 		return fmt.Errorf("unknown create target: %s", args[0])
 	}
 }
 
-func createApp(ctx context.Context, dir string, module string, noInstall bool) error {
+func createApp(ctx context.Context, dir string, module string, voltisPath string, noInstall bool) error {
 	if err := os.MkdirAll(dir, 0o755); err != nil {
+		return err
+	}
+
+	localVoltisPath, err := resolveVoltisRepoPath(voltisPath)
+	if err != nil {
 		return err
 	}
 
@@ -56,7 +62,7 @@ func createApp(ctx context.Context, dir string, module string, noInstall bool) e
 	if err := write(".gitignore", tmplGitIgnore); err != nil {
 		return err
 	}
-	if err := write("go.mod", renderAppGoMod(module, findVoltisRepoRoot())); err != nil {
+	if err := write("go.mod", renderAppGoMod(module, localVoltisPath)); err != nil {
 		return err
 	}
 	if err := write("app/package.json", tmplAppPackageJSON); err != nil {
@@ -102,6 +108,16 @@ func createApp(ctx context.Context, dir string, module string, noInstall bool) e
 		return err
 	}
 
+	if localVoltisPath == "" {
+		get := exec.CommandContext(ctx, "go", "get", "github.com/Gsykes27/voltis@latest")
+		get.Dir = dir
+		get.Stdout = os.Stdout
+		get.Stderr = os.Stderr
+		if err := get.Run(); err != nil {
+			return err
+		}
+	}
+
 	tidy := exec.CommandContext(ctx, "go", "mod", "tidy")
 	tidy.Dir = dir
 	tidy.Stdout = os.Stdout
@@ -121,6 +137,25 @@ func createApp(ctx context.Context, dir string, module string, noInstall bool) e
 	}
 
 	return nil
+}
+
+func resolveVoltisRepoPath(p string) (string, error) {
+	p = strings.TrimSpace(p)
+	if p == "" {
+		return findVoltisRepoRoot(), nil
+	}
+	abs, err := filepath.Abs(p)
+	if err == nil {
+		p = abs
+	}
+	b, err := os.ReadFile(filepath.Join(p, "go.mod"))
+	if err != nil {
+		return "", fmt.Errorf("invalid -voltis-path: %w", err)
+	}
+	if !strings.Contains(string(b), "module github.com/Gsykes27/voltis") {
+		return "", errors.New("invalid -voltis-path: go.mod is not module github.com/Gsykes27/voltis")
+	}
+	return p, nil
 }
 
 func renderAppGoMod(module string, voltisLocalPath string) string {
