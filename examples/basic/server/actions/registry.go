@@ -1,6 +1,5 @@
 package actions
 
-import "github.com/voltis/voltis/voltis/runtime"
+import "github.com/Gsykes27/voltis/voltis/runtime"
 
 var Registry = runtime.NewActionRegistry()
-

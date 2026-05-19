@@ -7,7 +7,7 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/voltis/voltis/voltis/cli"
+	"github.com/Gsykes27/voltis/voltis/cli"
 )
 
 func main() {
@@ -19,4 +19,3 @@ func main() {
 		os.Exit(1)
 	}
 }
-

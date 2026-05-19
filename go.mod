@@ -1,4 +1,4 @@
-module github.com/voltis/voltis
+module github.com/Gsykes27/voltis
 
 go 1.22
 

@@ -6,8 +6,8 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/voltis/voltis/examples/basic/server/actions"
-	"github.com/voltis/voltis/voltis/runtime"
+	"github.com/Gsykes27/voltis/examples/basic/server/actions"
+	"github.com/Gsykes27/voltis/voltis/runtime"
 )
 
 func main() {
@@ -41,4 +41,3 @@ func main() {
 		panic(err)
 	}
 }
-

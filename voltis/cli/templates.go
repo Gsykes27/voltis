@@ -192,7 +192,7 @@ import (
   "path/filepath"
 
   "example.com/voltis-app/server/actions"
-  "github.com/voltis/voltis/voltis/runtime"
+  "github.com/Gsykes27/voltis/voltis/runtime"
 )
 
 func main() {
@@ -230,14 +230,14 @@ func main() {
 
 const tmplServerRegistryGo = `package actions
 
-import "github.com/voltis/voltis/voltis/runtime"
+import "github.com/Gsykes27/voltis/voltis/runtime"
 
 var Registry = runtime.NewActionRegistry()
 `
 
 const tmplServerCounterActionGo = `package actions
 
-import "github.com/voltis/voltis/voltis/runtime"
+import "github.com/Gsykes27/voltis/voltis/runtime"
 
 func init() {
   Registry.Register("GetCounter", func(ctx runtime.ActionCtx, data map[string]any) (any, error) {

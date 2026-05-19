@@ -9,7 +9,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/voltis/voltis/voltis/runtime"
+	"github.com/Gsykes27/voltis/voltis/runtime"
 )
 
 func runGenerate(ctx context.Context, args []string) error {
@@ -113,7 +113,7 @@ func genAction(serverRoot string, name string) error {
 	if _, err := os.Stat(registryFile); os.IsNotExist(err) {
 		reg := `package actions
 
-import "github.com/voltis/voltis/voltis/runtime"
+import "github.com/Gsykes27/voltis/voltis/runtime"
 
 var Registry = runtime.NewActionRegistry()
 `
@@ -129,7 +129,7 @@ var Registry = runtime.NewActionRegistry()
 
 	code := fmt.Sprintf(`package actions
 
-import "github.com/voltis/voltis/voltis/runtime"
+import "github.com/Gsykes27/voltis/voltis/runtime"
 
 func init() {
   Registry.Register(%q, func(ctx runtime.ActionCtx, data map[string]any) (any, error) {
@@ -151,4 +151,3 @@ func toSnake(s string) string {
 	}
 	return strings.ToLower(b.String())
 }
-

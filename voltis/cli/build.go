@@ -6,8 +6,8 @@ import (
 	"os/exec"
 	"path/filepath"
 
-	"github.com/voltis/voltis/voltis/builder"
-	"github.com/voltis/voltis/voltis/runtime"
+	"github.com/Gsykes27/voltis/voltis/builder"
+	"github.com/Gsykes27/voltis/voltis/runtime"
 )
 
 func runBuild(ctx context.Context, args []string) error {

@@ -130,9 +130,9 @@ func renderAppGoMod(module string, voltisLocalPath string) string {
 	}
 	b.WriteString("module ")
 	b.WriteString(module)
-	b.WriteString("\n\ngo 1.22\n\nrequire github.com/voltis/voltis v0.0.0\n")
+	b.WriteString("\n\ngo 1.22\n\nrequire github.com/Gsykes27/voltis v0.0.0\n")
 	if voltisLocalPath != "" && !strings.ContainsAny(voltisLocalPath, " \t") {
-		b.WriteString("\nreplace github.com/voltis/voltis => ")
+		b.WriteString("\nreplace github.com/Gsykes27/voltis => ")
 		b.WriteString(filepath.ToSlash(voltisLocalPath))
 		b.WriteString("\n")
 	}
@@ -148,7 +148,7 @@ func findVoltisRepoRoot() string {
 	for i := 0; i < 10; i++ {
 		p := filepath.Join(dir, "go.mod")
 		b, err := os.ReadFile(p)
-		if err == nil && strings.Contains(string(b), "module github.com/voltis/voltis") {
+		if err == nil && strings.Contains(string(b), "module github.com/Gsykes27/voltis") {
 			return dir
 		}
 		parent := filepath.Dir(dir)

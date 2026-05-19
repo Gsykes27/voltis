@@ -4,7 +4,7 @@ import (
 	"errors"
 	"strings"
 
-	"github.com/voltis/voltis/voltis/runtime"
+	"github.com/Gsykes27/voltis/voltis/runtime"
 )
 
 func init() {
@@ -39,4 +39,3 @@ func init() {
 		return t, nil
 	})
 }
-
