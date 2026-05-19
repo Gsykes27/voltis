@@ -165,8 +165,9 @@ func renderAppGoMod(module string, voltisLocalPath string) string {
 	}
 	b.WriteString("module ")
 	b.WriteString(module)
-	b.WriteString("\n\ngo 1.22\n\nrequire github.com/Gsykes27/voltis v0.0.0\n")
+	b.WriteString("\n\ngo 1.22\n")
 	if voltisLocalPath != "" && !strings.ContainsAny(voltisLocalPath, " \t") {
+		b.WriteString("\nrequire github.com/Gsykes27/voltis v0.0.0\n")
 		b.WriteString("\nreplace github.com/Gsykes27/voltis => ")
 		b.WriteString(filepath.ToSlash(voltisLocalPath))
 		b.WriteString("\n")
